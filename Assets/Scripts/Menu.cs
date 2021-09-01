@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
+    [SerializeField] private GameObject _creatorsPanel;
+
     public void OnPlayButton()
     {
         Debug.Log("Play");
@@ -11,7 +14,7 @@ public class Menu : MonoBehaviour
 
     public void OnCreatorsButton()
     {
-        Debug.Log("Show creators");
+        _creatorsPanel.SetActive(true);
     }
 
     public void OnExitButton()
