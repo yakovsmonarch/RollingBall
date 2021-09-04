@@ -2,25 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public class Move : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
+    [SerializeField] private AnimationClip _animationJump;
 
-    private Rigidbody2D _rigidBody;
-    private float _tapForce = 400f;
+
+    private Animator _animator;
 
     private void Start()
     {
-        _rigidBody = GetComponent<Rigidbody2D>();
-        _rigidBody.velocity = Vector2.zero;
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _rigidBody.AddForce(Vector2.up * _tapForce, ForceMode2D.Force);
+            //_animator.SetTrigger("Jump");
+            _animator.Play(_animationJump.name);
         }
     }
 }

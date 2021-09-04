@@ -669,6 +669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1290587896}
+  _animationJump: {fileID: 7400000, guid: 7aa0ea462743acb4189775f053df3913, type: 2}
 --- !u!114 &1290587902
 MonoBehaviour:
   m_ObjectHideFlags: 0
