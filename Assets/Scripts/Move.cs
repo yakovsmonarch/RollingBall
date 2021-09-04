@@ -20,7 +20,6 @@ public class Move : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //_animator.SetTrigger("Jump");
             _animator.Play(_animationJump.name);
         }
     }
