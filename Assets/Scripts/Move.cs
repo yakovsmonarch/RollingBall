@@ -4,27 +4,31 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    [SerializeField] private GameObject _player;
     [SerializeField] private Rigidbody2D _rigidbody;
 
     private float _jumpPower = 8f;
     private bool _isGrounded = true;
+    private float _speed = 2f;
 
     private void Start()
     {
-        Time.timeScale = 3f;
+
     }
 
     private void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    _rigidbody.AddForce(transform.up * _jumpPower, ForceMode2D.Impulse);
-        //}
+        if (Input.GetMouseButtonDown(0) && _isGrounded)
+        {
+            _rigidbody.AddForce(transform.up * _jumpPower, ForceMode2D.Impulse);
+            _isGrounded = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.TryGetComponent(out Ground ground))
+        {
+            _isGrounded = true;
+        }
     }
 }
