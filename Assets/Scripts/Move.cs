@@ -2,25 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class Move : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
-    [SerializeField] private AnimationClip _animationJump;
+    [SerializeField] private Rigidbody2D _rigidbody;
 
-
-    private Animator _animator;
+    private float _jumpPower = 8f;
+    private bool _isGrounded = true;
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
+        Time.timeScale = 3f;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _animator.Play(_animationJump.name);
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    _rigidbody.AddForce(transform.up * _jumpPower, ForceMode2D.Impulse);
+        //}
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.name);
     }
 }

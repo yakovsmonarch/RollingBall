@@ -13,7 +13,6 @@ public class Menu : MonoBehaviour
     public void OnPlayButton()
     {
         SceneManager.LoadScene(_gameScene);
-        Debug.Log("Play");
     }
 
     public void OnCreatorsButton()
@@ -23,7 +22,6 @@ public class Menu : MonoBehaviour
 
     public void OnExitButton()
     {
-        Debug.Log("Exit");
         Application.Quit();
     }
 
