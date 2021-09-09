@@ -5,21 +5,17 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody;
+    [SerializeField] private Vector2 _jumpPower;
 
-    private float _jumpPower = 8f;
     private bool _isGrounded = true;
-    private float _speed = 2f;
-
-    private void Start()
-    {
-
-    }
+    private float _speed = 5.0f;
 
     private void Update()
     {
+        transform.Translate(_speed * Time.deltaTime, 0f, 0f);
         if (Input.GetMouseButtonDown(0) && _isGrounded)
         {
-            _rigidbody.AddForce(transform.up * _jumpPower, ForceMode2D.Impulse);
+            _rigidbody.AddForce(_jumpPower, ForceMode2D.Impulse);
             _isGrounded = false;
         }
     }
