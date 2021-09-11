@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpPower;
     [SerializeField] private float _speed;
     [SerializeField] private float _timeScale;
+
+    public event UnityAction TouchingHeart;
 
     private bool _isGrounded = true;
 
@@ -29,6 +32,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent(out Ground ground)) _isGrounded = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Heart heart))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
     private void Move()
