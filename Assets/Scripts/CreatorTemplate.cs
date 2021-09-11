@@ -20,7 +20,7 @@ public class CreatorTemplate : MonoBehaviour
     private void Start()
     {
         _waitingTime = Random.Range(_minTime, _maxTime);
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
             _templates.Add(Instantiate(_template, new Vector3(0, 0, 0), Quaternion.identity));
             _templates[i].gameObject.SetActive(false);

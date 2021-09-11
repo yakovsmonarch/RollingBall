@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public event UnityAction ClashWithEnemy;
 
     private bool _isGrounded = true;
+    private bool _jump = false;
 
     private void Start()
     {
@@ -23,17 +24,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Jump();
+        if(Input.GetMouseButtonDown(0) && _isGrounded)
+        {
+            _jump = true;
+        }
     }
 
     private void FixedUpdate()
     {
         Move();
+        Jump();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out Ground ground)) _isGrounded = true;
+        if (collision.gameObject.TryGetComponent(out Ground ground))
+        {
+            _isGrounded = true;
+        }
 
         if (collision.gameObject.TryGetComponent(out Enemy enemy))
         {
@@ -47,21 +55,25 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out Heart heart))
         {
             TouchingHeart?.Invoke();
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
     }
 
     private void Move()
     {
-        if(_isGrounded) _rigidbody.velocity = new Vector2(_speed, 0);
+        if (_isGrounded)
+        {
+            _rigidbody.velocity = new Vector2(_speed, 0);
+        }
     }
 
     private void Jump()
     {
-        if (Input.GetMouseButtonDown(0) && _isGrounded)
+        if (_jump)
         {
             _rigidbody.AddForce(new Vector2(0, _jumpPower), ForceMode2D.Impulse);
             _isGrounded = false;
+            _jump = false;
         }
     }
 
