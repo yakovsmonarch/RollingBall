@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out Heart heart))
         {
+            TouchingHeart?.Invoke();
             Destroy(collision.gameObject);
         }
     }
