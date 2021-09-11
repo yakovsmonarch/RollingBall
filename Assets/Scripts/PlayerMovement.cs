@@ -5,26 +5,43 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigidbody;
-    [SerializeField] private float _jumpPower = 8f;
-    [SerializeField] private float _speed = 5.0f;
+    [SerializeField] private float _jumpPower;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _timeScale;
 
     private bool _isGrounded = true;
 
+    private void Start()
+    {
+        Time.timeScale = _timeScale;
+    }
+
     private void Update()
     {
-        transform.Translate(_speed * Time.deltaTime, 0f, 0f);
-        if (Input.GetMouseButtonDown(0) && _isGrounded)
-        {
-            _rigidbody.AddForce(new Vector2(0, _jumpPower), ForceMode2D.Impulse);
-            _isGrounded = false;
-        }
+        Jump();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out Ground ground))
+        if (collision.gameObject.TryGetComponent(out Ground ground)) _isGrounded = true;
+    }
+
+    private void Move()
+    {
+        if(_isGrounded) _rigidbody.velocity = new Vector2(_speed, 0);
+    }
+
+    private void Jump()
+    {
+        if (Input.GetMouseButtonDown(0) && _isGrounded)
         {
-            _isGrounded = true;
+            _rigidbody.AddForce(new Vector2(0, _jumpPower), ForceMode2D.Impulse);
+            _isGrounded = false;
         }
     }
 }
