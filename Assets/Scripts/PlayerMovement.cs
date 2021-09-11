@@ -11,12 +11,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _timeScale;
 
     public event UnityAction TouchingHeart;
+    public event UnityAction ClashWithEnemy;
 
     private bool _isGrounded = true;
 
     private void Start()
     {
         Time.timeScale = _timeScale;
+        StartCoroutine(SpeedUpPlayer());
     }
 
     private void Update()
@@ -32,6 +34,12 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.TryGetComponent(out Ground ground)) _isGrounded = true;
+
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        {
+            ClashWithEnemy?.Invoke();
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,6 +62,15 @@ public class PlayerMovement : MonoBehaviour
         {
             _rigidbody.AddForce(new Vector2(0, _jumpPower), ForceMode2D.Impulse);
             _isGrounded = false;
+        }
+    }
+
+    private IEnumerator SpeedUpPlayer()
+    {
+        while (true)
+        {
+            _speed += 0.1f;
+            yield return new WaitForSeconds(5f);
         }
     }
 }

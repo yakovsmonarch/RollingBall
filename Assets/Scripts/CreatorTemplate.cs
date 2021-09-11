@@ -2,56 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreatorEnemies : MonoBehaviour
+public class CreatorTemplate : MonoBehaviour
 {
     [SerializeField] private GameObject _template;
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private int _minTime;
     [SerializeField] private int _maxTime;
     [SerializeField] private float _liveTimeEnemy;
+    [SerializeField] private float _height;
 
     private float _waitingTime;
     private float _currentTime = 0;
-    private float _currentLiveTimeEnemy = 0;
-    private List<GameObject> _enemies = new List<GameObject>();
-    private int _currentIndexEnemy = 0;
+    private float _currentLiveTimeTemplate = 0;
+    private List<GameObject> _templates = new List<GameObject>();
+    private int _currentIndexTemplate = 0;
 
     private void Start()
     {
         _waitingTime = Random.Range(_minTime, _maxTime);
         for (int i = 0; i < 10; i++)
         {
-            _enemies.Add(Instantiate(_template, new Vector3(0, 0, 0), Quaternion.identity));
-            _enemies[i].gameObject.SetActive(false);
+            _templates.Add(Instantiate(_template, new Vector3(0, 0, 0), Quaternion.identity));
+            _templates[i].gameObject.SetActive(false);
         }
     }
 
     private void Update()
     {
         _currentTime += Time.deltaTime;
-        _currentLiveTimeEnemy += Time.deltaTime;
+        _currentLiveTimeTemplate += Time.deltaTime;
 
         if(_currentTime >= _waitingTime)
         {
-            CrateEnemy(_currentIndexEnemy++);
-            if(_currentIndexEnemy == _enemies.Count)
+            CrateEnemy(_currentIndexTemplate++);
+            if(_currentIndexTemplate == _templates.Count)
             {
-                _currentIndexEnemy = 0;
+                _currentIndexTemplate = 0;
             }
 
             _waitingTime = Random.Range(_minTime, _maxTime);
             _currentTime = 0;
         }
 
-        if(_currentLiveTimeEnemy >= _liveTimeEnemy)
+        if(_currentLiveTimeTemplate >= _liveTimeEnemy)
         {
-            _currentLiveTimeEnemy = 0;
+            _currentLiveTimeTemplate = 0;
         }
     }
 
     private void CrateEnemy(int currentIndexEnemy)
     {
-        _enemies[currentIndexEnemy].transform.position = new Vector3(_playerTransform.position.x + 10, _playerTransform.position.y, 0);
-        _enemies[currentIndexEnemy].gameObject.SetActive(true);
+        _templates[currentIndexEnemy].transform.position = new Vector3(_playerTransform.position.x + 10, _height, 0);
+        _templates[currentIndexEnemy].gameObject.SetActive(true);
     }
 }
