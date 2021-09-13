@@ -1464,7 +1464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e9ad489633700f499c6a67213dc54f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _template: {fileID: 8112381328235667471, guid: 0e866693771322446a483297b552306c, type: 3}
+  _template: {fileID: 8112381328235667471, guid: d75bd8f8aac80b94083433f1fbcfae13, type: 3}
   _playerTransform: {fileID: 1290587898}
   _minTime: 4
   _maxTime: 7
