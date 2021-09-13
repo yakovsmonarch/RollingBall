@@ -29,6 +29,5 @@ public class GameMenu : MonoBehaviour
     private void OpenWictoryPanel()
     {
         _wictoryPanel.gameObject.SetActive(true);
-        Time.timeScale = 0;
     }
 }
